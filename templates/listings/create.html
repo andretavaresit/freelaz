@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Criar {% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <h1>
+        {%if update %}
+        Editar
+        {% else %}
+        Criar
+        {% endif %}
+    </h1>
+    {% if update %}
+        <form action="{% url 'update' pk%}" method="POST" enctype="multipart/form-data">
+    {% else %}
+        <form action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
+    {% endif %}
+        {% csrf_token %}
+        {{ form|crispy }}
+        {%if update %}
+        <button class="btn btn-primary" type="submit">Editar</button> 
+        {% else %}
+        <br>
+        <button class="btn btn-primary" type="submit">Criar</button> 
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
