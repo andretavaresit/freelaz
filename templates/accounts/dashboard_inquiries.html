@@ -61,7 +61,7 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="inquiryModalLabel">Inquiry for {{inquiry.listing}}</h5>
+                      <h5 class="modal-title" id="inquiryModalLabel">Mensagem para {{inquiry.listing}}</h5>
                       <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                       </button>
@@ -72,11 +72,11 @@
                         <input type="hidden" name="listing_id" value="{{listing.id}}">
                         <input type="hidden" name="owner_id" value="{{listing.owner.id}}">
                         <div class="form-group">
-                          <label for="property_name" class="col-form-label">Item:</label>
+                          <label for="property_name" class="col-form-label">Vaga:</label>
                           <input type="text" name="listing" class="form-control" value="{{inquiry.listing}}" readonly>
                         </div>
                         <div class="form-group">
-                          <label for="name" class="col-form-label">Name:</label>
+                          <label for="name" class="col-form-label">Nome:</label>
                           <input type="text" name="name" class="form-control" value="{{inquiry.name}}" readonly>
                         </div>
                         <div class="form-group">
@@ -84,12 +84,12 @@
                           <input type="email" name="email" class="form-control" value="{{inquiry.email}}" readonly>
                         </div>
                         <div class="form-group">
-                          <label for="phone" class="col-form-label">Phone:</label>
+                          <label for="phone" class="col-form-label">Telefone:</label>
                           <input type="text" name="phone" class="form-control" value="{{inquiry.phone}}" readonly>
                         </div>
                         <div class="form-group">
-                          <label for="message" class="col-form-label">Message:</label>
-                          <textarea name="message" class="form-control" value="{{inquiry.message}}" readonly></textarea>
+                          <label for="message" class="col-form-label">Mensagem:</label>
+                          <input type="text" name="message" class="form-control" value="{{inquiry.message}}" readonly>
                         </div>
                         <hr>
                     </form>
@@ -123,7 +123,7 @@
                         </div>
                         <div class="form-group">
                           <label for="message" class="col-form-label">Message:</label>
-                          <textarea name="message" class="form-control" required></textarea>
+                          <textarea name="message" class="form-control" value="{{inquiry.message}}"required></textarea>
                         </div>
                         <hr>
                        <input type="submit" value="Send" class="btn btn-block btn-secondary">

@@ -19,16 +19,17 @@ def inquirys(request):
             user_id  = request.user.id
             has_inquired = inquiry.objects.all().filter(listing_id=listing_id, user_id=user_id)
             if has_inquired:
-                messages.error(request, 'You have already made an inquiry for this listing')
+                messages.error(request, 'Você já entrou em contato com o proprietário')
                 return redirect('/listing/'+listing_id+'/')
             inquirys1 = inquiry(listing=listing, listing_id=listing_id, name=name, email=email, phone=phone, message=message, user_id=user_id, owner_id=owner_id)
             inquirys1.save()
             send_mail(
-                'Inquiry for '+ listing,
-                'There has been an inquiry for '+ listing +'.Sign in to your dashboard for further info',
-                'cristomathew7@gmail.com',
+                'Mensagem sobre o anúncio "'+ listing+'"',
+                'Você recebeu uma mensagem para '+ listing +
+                ' - Faça login no seu painel para obter mais informações',
+                'andretavares16@gmail.com',
                 [owner_mail],
                 fail_silently=False
             )
-            messages.success(request, "your inquiry has been made, the owner of the post will get back to you asap")
+            messages.success(request, "Sua mensagem foi enviada, o proprietário da postagem entrará em contato com você o mais rápido possível")
             return redirect('/listing/'+listing_id+'/')
