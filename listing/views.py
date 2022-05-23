@@ -1,10 +1,12 @@
 from django.contrib import messages
+from datetime import datetime
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Listing
 from django.core.paginator import Paginator, EmptyPage
 from .choices import price_choices, category_choices, state_choices
 from django.contrib.auth.decorators import login_required
 from .forms import ListingForm, UpdateForm
+
 def listings(request):
     listings = Listing.objects.order_by('-list_date').filter(is_published=True)
     paginator = Paginator(listings, 9)
@@ -102,17 +104,33 @@ def search(request):
 
 @login_required
 def create(request):
-    if request.method == 'POST':
-        form = ListingForm(request.POST, request.FILES)
-        if form.is_valid():
-            new = form.save(commit=False)
-            new.owner = request.user
-            new.save()
-            return redirect('dashboard')
-        else:
-            pass
+    
+    
+    context = {
+    'state_choices': state_choices,
+    'category_choices': category_choices
+        }
+    if request.method=='GET':
+        print('GET')
     else:
-        return render(request,'listings/create.html',{'form': ListingForm()})
+        print('POST')
+        photo_main = request.POST.get('foto-principal')
+        titulo = request.POST.get('titulo')
+        categoria = request.POST.get('categoria')
+        endereco = request.POST.get('endereco')
+        cidade = request.POST.get('cidade')
+        estado = request.POST.get('estado')
+        cep = request.POST.get('cep')
+        descricao = request.POST.get('descricao')
+        preco = request.POST.get('preco')
+
+        data_agora = datetime.now()
+        data_agora = data_agora.strftime('%Y/%m/%d')
+        data_agora = str(data_agora)
+
+        Listing.objects.create(photo_main='photos/'+data_agora+'/'+photo_main,owner=request.user,title=titulo,category=categoria,address=endereco,city=cidade,state=estado,zipcode=cep,description=descricao,price=preco)
+    return render(request,'listings/create.html',context)
+    
 
 
 @login_required

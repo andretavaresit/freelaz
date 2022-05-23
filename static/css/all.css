@@ -15,6 +15,15 @@
    font-variant: normal;
    text-rendering: auto;
    line-height: 1; }
+
+   input, textarea{
+    border: 1px solid lightblue;
+    width: 100%;
+  }
+  textarea{
+    height: 65px;
+    resize: none;
+  }
  
  .fa-lg {
    font-size: 1.33333em;
