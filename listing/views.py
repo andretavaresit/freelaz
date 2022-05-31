@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, EmptyPage
 from .choices import price_choices, category_choices, state_choices
 from django.contrib.auth.decorators import login_required
 from .forms import ListingForm, UpdateForm
+from django.core.mail import send_mail
 
 def listings(request):
     listings = Listing.objects.order_by('-list_date').filter(is_published=True)
@@ -54,6 +55,23 @@ def listing(request, pk):
                     request.user.rate_listing = ','.join(rate_listing)
                     request.user.save()
                     listing.save()
+                    if int(my_rating)<5:
+                        print('entrei if')
+                        owner_mail = request.POST['owner_mail']
+                        title = request.POST['listing']
+                        send_mail(
+                            'Mensagem sobre o anúncio "'+ title+'"',
+                            'Seu anúncio '+ title +
+                            ' foi avaliado abaixo de nossas regras de diretrizes, você tem 1 semana para melhorar a avaliação ou seu anúncio será removido de nossa plataforma.',
+                            'andretavares16@gmail.com',
+                            [owner_mail],
+                            fail_silently=False
+                        )
+                        
+                        messages.success(request, "Sua avaliação gerou um avíso ao dono do Anúncio, caso o mesmo nao melhore, terá seu anúncio removido.")
+                        print('passei avaliação')
+                    else:
+                        print('nao entrei if')
         
         if str(pk) in favourites:
             favourite=True
@@ -76,7 +94,7 @@ def search(request):
     if 'keywords' in request.GET:
         keywords = request.GET['keywords']
         if keywords:
-            query_set = query_set.filter(description__icontains=keywords)
+            query_set = query_set.filter(title__icontains=keywords)
     if 'city' in request.GET:
         city = request.GET['city']
         if city:
@@ -135,26 +153,47 @@ def create(request):
 
 @login_required
 def update(request, pk):
+    print('entrei função')
     listing = get_object_or_404(Listing, pk=pk, owner=request.user)
+    print('entrei passei get object')
     context = {
         'form': UpdateForm(instance=listing),
         'update': True,
         'pk': pk
     }
+    print('entrei passei context')
     if request.method=="POST":
-        form = UpdateForm(request.POST,request.FILES,instance=listing)
-        print(form)
-        print(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('dashboard')
+        print('entrei passei REQUEST')
+        photo_main = request.POST.get('foto-principal')
+        titulo = request.POST.get('titulo')
+        categoria = request.POST.get('categoria')
+        endereco = request.POST.get('endereco')
+        cidade = request.POST.get('cidade')
+        estado = request.POST.get('estado')
+        cep = request.POST.get('cep')
+        descricao = request.POST.get('descricao')
+        preco = request.POST.get('preco')
+
+        data_agora = datetime.now()
+        data_agora = data_agora.strftime('%Y/%m/%d')
+        data_agora = str(data_agora)
+
+        Listing.objects.filter(pk=pk).update(photo_main='photos/'+data_agora+'/'+photo_main,owner=request.user,title=titulo,category=categoria,address=endereco,city=cidade,state=estado,zipcode=cep,description=descricao,price=preco)
+        return redirect('dashboard')
 
     else:
-        return render(request, 'listings/create.html', context)
+        print('entrei NAO passei REQUEST')
+        print('LISTING: '+str(listing.__dict__))
+        context = {
+        'state_choices': state_choices,
+        'category_choices': category_choices,
+        'listing': listing   
+        }
+        return render(request, 'listings/update.html', context)
 
 @login_required
 def delete_listing(request, pk):
-    listing = get_object_or_404(Listing, pk=pk, owner=request.user)
-    if request.method=="POST":
-        listing.delete()
-        return redirect('dashboard')
+    listing = get_object_or_404(Listing,pk=pk)
+    print(str(listing.__dict__))
+    listing.delete()
+    return redirect('dashboard')

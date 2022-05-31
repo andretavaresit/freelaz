@@ -4,11 +4,10 @@
 {% load crispy_forms_tags %}
 <div class="container">
     <h1>
-        {%if update %}
+        
         Editar
-        {% else %}
-        Criar
-        {% endif %}
+        
+        
     </h1>
         {% csrf_token %}
         
@@ -107,15 +106,15 @@
                   <div class="card">
                     <div class="card-header bg-primary text-white">
                       <h4>
-                        <i ></i> Criar Anúncio</h4>
+                        <i ></i> Editar Anúncio</h4>
                     </div>
                     <div class="card-body">
                         {% include 'partials/_alerts.html' %}
-                        <form action="{% url 'create' %}" method="POST">
+                        <form action="{% url 'update' listing.id%}" method="POST">
                             {% csrf_token %}
                           <div class="form-group">
                           <label for="first_name">Título</label>
-                          <input type="text" name="titulo" class="form-control" required>
+                          <input type="text" name="titulo" class="form-control" required value={{listing.title}}>
                         </div>
                         <div class="form-group">
                           <label for="last_name">Categoria</label>
@@ -127,34 +126,34 @@
                         </div>
                         <div class="form-group">
                           <label for="username">Endereço</label>
-                          <input type="text" name="endereco" class="form-control" required>
+                          <input type="text" name="endereco" class="form-control" value={{listing.address}} required >
                         </div>
                         <div class="form-group">
                           <label for="email">Cidade</label>
-                          <input type="text" name="cidade" class="form-control" required>
+                          <input type="text" name="cidade" class="form-control" value={{listing.city}} required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Estado</label>
-                            <input type="text" name="estado" class="form-control" required>
+                            <input type="text" name="estado" class="form-control" value={{listing.state}} required>
                           </div>
                         <div class="form-group">
-                          <label for="password2">Cep</label>
-                          <input type="password" name="cep" class="form-control" required>
+                          <label for="password">Cep</label>
+                          <input type="text" name="cep" class="form-control" value={{listing.zipcode}} required>
                         </div>
                         <div class="form-group">
                           <label for="password">Descrição</label><br>
-                          <textarea id= "descricao" name="descricao" placeholder="Descrição" required></textarea>
+                          <input type="text" name="descricao" class="form-control"  value={{listing.description}} required>
                         </div>
                         <div class="form-group">
                             <label for="password">Preço</label>
-                            <input type="text" onkeypress="return onlynumber();"name="preco" class="form-control" required>
+                            <input type="text" onkeypress="return onlynumber();"name="preco" value={{listing.price}} class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Foto Principal</label>
-                            <input type="file" name="foto-principal" />
+                            <input type="file" name="foto-principal"  />
                         </div>
                         <div class="form-group">
-                            <label for="password">Foto - 1</label>
+                            <label for="password" >Foto - 1 </label>
                             <input type="file" />
                         </div>
                         <div class="form-group">
