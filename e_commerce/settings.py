@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'django.contrib.humanize',
 
     'pages',
@@ -49,6 +50,13 @@ INSTALLED_APPS = [
     'crispy_forms'
 ]
 
+# Crispy Forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -57,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'e_commerce.urls'
@@ -116,9 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -134,7 +143,7 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'e_commerce/static')
 ]
 
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_ROOT= os.path.join(BASE_DIR, 'static', 'media')
 MEDIA_URL = '/media/'
 
 # Default primary key field type
@@ -157,3 +166,4 @@ EMAIL_HOST_PASSWORD = 'sxzumnbchavaserl'
 EMAIL_USE_TLS = True
 
 django_heroku.settings(locals())
+

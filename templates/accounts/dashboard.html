@@ -37,9 +37,9 @@
         <div class="col-md-12">
           <h2>Bem vindo {{request.user.first_name}} {{request.user.last_name}}</h2>
           {% include 'partials/_dashnav.html'%}
+          {% if listings %}
           <p>Aqui estão os seus anúncios</p>
           <hr>
-          {% if listings %}
           <table class="table">
             <thead>
               <tr>
@@ -51,22 +51,23 @@
             <tbody>
                 {% for listing in listings %}
               <tr>
-                <td>{{listing.category}}</td>
-                <td>{{listing.title}}</td>
+                <td>{{listing.categoria}}</td>
+                <td>{{listing.titulo}}</td>
                 <td>
                   <a class="btn btn-light" href="{% url 'listing' listing.id%}">Ver Anúncio</a>
                   <a class="btn btn-outline-warning" href="{% url 'update' listing.id%}">Editar</a>
-                  <a class="btn btn-outline-danger" href="{% url 'delete' listing.id%}">Deletar</a>
-                  
-
+                  <form method="POST" action="{% url 'delete' listing.id%}">
+                    {% csrf_token%}
+                    <button type="submit" class="btn btn-outline-danger" id="delete">Delete</button>
+                  </form>
                 </td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
           {%else%}
-          <p>You have not created any listings </p>
-          <button class='btn btn-primary'>Create a New Lisitng</button>
+          <p>Você não criou nenhum Anúncio</p>
+          <a class='btn btn-primary' href="{% url 'create'%}">Criar um novo Anúncio</a>
           {%endif%}
         </div>
       </div>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Criar Anúncio {% endblock %}
+{% block title %} Create {% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
 <div class="container">
@@ -10,182 +10,17 @@
         Criar
         {% endif %}
     </h1>
+    {% if update %}
+        <form action="{% url 'update' pk%}" method="POST" enctype="multipart/form-data">
+    {% else %}
+        <form action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
+    {% endif %}
         {% csrf_token %}
-        
+        {{ form|crispy }}
         {%if update %}
-        <section id="update" class="bg-light py-5">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-6 mx-auto">
-                <div class="card">
-                  <div class="card-header bg-primary text-white">
-                    <h4>
-                      <i ></i> Editar Anúncio</h4>
-                  </div>
-                  <div class="card-body">
-                      {% include 'partials/_alerts.html' %}
-                      <form action="{% url 'update' pk%}" method="POST">
-                          {% csrf_token %}
-                        <div class="form-group">
-                        <label for="first_name">Título</label>
-                        <input type="text" name="titulo" class="form-control" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="last_name">Categoria</label>
-                        <select name="categoria" id="categoria" class="form-control" size="8" multiple="multiple">
-                          {% for choice in category_choices %}
-                              <option value="{{ choice }}">{{ choice }}</option>
-                          {% endfor %}
-                          </select>
-                      </div>
-                      <div class="form-group">
-                        <label for="username">Endereço</label>
-                        <input type="text" name="endereco" class="form-control" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="email">Cidade</label>
-                        <input type="text" name="cidade" class="form-control" required>
-                      </div>
-                      <div class="form-group">
-                          <label for="phone">Estado</label>
-                          <input type="text" name="estado" class="form-control" required>
-                        </div>
-                      <div class="form-group">
-                        <label for="password2">Cep</label>
-                        <input type="password" name="cep" class="form-control" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="password">Descrição</label><br>
-                        <textarea id= "descricao" name="descricao" placeholder="Descrição" required></textarea>
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Preço</label>
-                          <input type="text" onkeypress="return onlynumber();"name="preco" class="form-control" required>
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Foto Principal</label>
-                          <input type="file" name="foto-principal" />
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Foto - 1</label>
-                          <input type="file" />
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Foto - 2</label>
-                          <input type="file" />
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Foto - 3</label>
-                          <input type="file" />
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Foto - 4</label>
-                          <input type="file" />
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Foto - 5</label>
-                          <input type="file" />
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Foto - 6</label>
-                          <input type="file" />
-                      </div>
-                      <input type="submit" value="Editar" class="btn btn-secondary btn-block">
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section> 
+        <button class="btn btn-primary" type="submit">Editar</button> 
         {% else %}
-        <br>
-        <section id="register" class="bg-light py-5">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-6 mx-auto">
-                  <div class="card">
-                    <div class="card-header bg-primary text-white">
-                      <h4>
-                        <i ></i> Criar Anúncio</h4>
-                    </div>
-                    <div class="card-body">
-                        {% include 'partials/_alerts.html' %}
-                        <form action="{% url 'create' %}" method="POST">
-                            {% csrf_token %}
-                          <div class="form-group">
-                          <label for="first_name">Título</label>
-                          <input type="text" name="titulo" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="last_name">Categoria</label>
-                          <select name="categoria" id="categoria" class="form-control" size="8" multiple="multiple">
-                            {% for choice in category_choices %}
-                                <option value="{{ choice }}">{{ choice }}</option>
-                            {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="username">Endereço</label>
-                          <input type="text" name="endereco" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="email">Cidade</label>
-                          <input type="text" name="cidade" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Estado</label>
-                            <input type="text" name="estado" class="form-control" required>
-                          </div>
-                        <div class="form-group">
-                          <label for="password2">Cep</label>
-                          <input type="password" name="cep" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="password">Descrição</label><br>
-                          <textarea id= "descricao" name="descricao" placeholder="Descrição" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Preço</label>
-                            <input type="text" onkeypress="return onlynumber();"name="preco" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Foto Principal</label>
-                            <input type="file" name="foto-principal" />
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Foto - 1</label>
-                            <input type="file" />
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Foto - 2</label>
-                            <input type="file" />
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Foto - 3</label>
-                            <input type="file" />
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Foto - 4</label>
-                            <input type="file" />
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Foto - 5</label>
-                            <input type="file" />
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Foto - 6</label>
-                            <input type="file" />
-                        </div>
-                        <input type="submit" value="Criar" class="btn btn-secondary btn-block">
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        
+        <button class="btn btn-primary" type="submit">Criar</button> 
         {% endif %}
     </form>
 </div>

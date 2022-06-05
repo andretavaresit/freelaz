@@ -37,9 +37,9 @@
         <div class="col-md-12">
           <h2>Bem vindo {{request.user.first_name}} {{request.user.last_name}}</h2>
           {% include 'partials/_dashnav.html'%}
+          {% if listings %}
           <p>Aqui estão seus anúncios favoritos</p>
           <hr>
-          {% if listings %}
           <table class="table">
             <thead>
               <tr>
@@ -51,17 +51,18 @@
             <tbody>
                 {% for listing in listings %}
               <tr>
-                <td>{{listing.category}}</td>
-                <td>{{listing.title}}</td>
+                <td>{{listing.categoria}}</td>
+                <td>{{listing.titulo}}</td>
                 <td>
-                  <a class="btn btn-light" href="{% url 'listing' listing.id%}">View Listing</a>
+                  <a class="btn btn-light" href="{% url 'listing' listing.id%}">Ver Anúncio</a>
                 </td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
+          
           {%else%}
-          <p>Você não favoritou nenhum anúncio ainda</p>
+            <p>Você não favoritou nenhum anúncio ainda</p>
           {%endif%}
         </div>
       </div>

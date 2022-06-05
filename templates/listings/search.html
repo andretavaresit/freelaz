@@ -10,22 +10,22 @@
             <!-- Form Row 1 -->
             <div class="form-row">
               <div class="col-md-4 mb-3">
-                <label class="sr-only">Search</label>
-                <input type="text" name="keywords" class="form-control" placeholder="Search (Electronics, Gadgets, books)">
+                <label class="sr-only">Buscar</label>
+                <input type="text" name="keywords" class="form-control" placeholder="Buscar">
               </div>
 
               <div class="col-md-4 mb-3">
                 <label class="sr-only">Cidade</label>
-                <input type="text" name="city" class="form-control" placeholder="City">
+                <input type="text" name="city" class="form-control" placeholder="Cidade">
               </div>
 
               <div class="col-md-4 mb-3">
                 <label class="sr-only">Estado</label>
                 <select name="state" class="form-control">
-                  <option selected="true" disabled="disabled">State (All)</option>
+                  <option selected="true" disabled="disabled">Estado (Todos)</option>
                     {% for key,value in state_choices.items %}
                     <option value="{{key}}"
-                    {% if key == values.state %}
+                    {% if key == values.estado %}
                     selected
                     {% endif %}
                     >{{value}}</option>
@@ -39,10 +39,10 @@
               <div class="col-md-6 mb-3">
                 <label class="sr-only">Categoria</label>
                 <select name="category" class="form-control">
-                  <option selected="true" disabled="disabled">Category (All)</option>
+                  <option selected="true" disabled="disabled">Categoria (Todas)</option>
                   {% for key,value in category_choices.items %}
                     <option value="{{key}}"
-                    {% if key == values.category %}
+                    {% if key == values.categoria %}
                     selected
                     {% endif %}
                     >{{value}}</option>
@@ -54,7 +54,7 @@
                   <option selected="true" disabled="disabled">Preço Máximo(All)</option>
                   {% for key,value in price_choices.items %}
                     <option value="{{key}}"
-                    {% if key == values.price %}
+                    {% if key == values.preco %}
                     selected
                     {% endif %}
                     >{{value}}</option>
@@ -98,32 +98,32 @@
         {% for listing in query_set %}
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="card listing-preview">
-            <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+            <img class="card-img-top" src="{{ listing.foto_1.url }}" alt="">
             <div class="card-img-overlay">
               <h2>
-                <span class="badge badge-secondary text-white">R$ {{ listing.price | intcomma }}</span>
+                <span class="badge badge-secondary text-white">R$ {{ listing.preco | intcomma }}</span>
               </h2>
             </div>
             <div class="card-body">
               <div class="listing-heading text-center">
-                <h4 class="text-primary">{{listing.title}}</h4>
+                <h4 class="text-primary">{{listing.titulo}}</h4>
                 <p>
-                  <i class="fas fa-map-marker text-secondary"></i> {{listing.city}} {{listing.state}}, {{listing.zipcode}}</p>
+                  <i class="fas fa-map-marker text-secondary"></i> {{listing.cidade}} {{listing.estado}}, {{listing.cep}}</p>
               </div>
               <hr>
               <div class="row py-2 text-secondary">
                 <div class="col-8">
-                  <i class="fas fa-th-large"></i> Category: {{listing.category}}
+                  <i class="fas fa-th-large"></i> Categoria: {{listing.categoria}}
                 </div>
               </div>
               <div class="row py-2 text-secondary">
                 <div class="col-8">
-                  <i class="fas fa-user"></i> Owner: {{listing.owner.first_name}}
+                  <i class="fas fa-user"></i> Prestador: {{listing.owner.first_name}}
                 </div>
                 </div>
                 <div class="row py-2 text-secondary">
                 <div class="col-8">
-                  <i class="fas fa-phone"></i> Phone: {{listing.owner.phone}}
+                  <i class="fas fa-phone"></i> Telefone: {{listing.owner.phone}}
                 </div>
                 </div>
                 <div class="row py-2 text-secondary">
@@ -138,13 +138,13 @@
                   <i class="fas fa-clock"></i>   {{listing.list_date | timesince }}</div>
               </div>
               <hr>
-              <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">More Info</a>
+              <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">Mais Info</a>
           </div>
         </div>
         {% endfor %}
         {% else %}
         <div class="col-md-12">
-            <p>Currently there are no listings Available</p>
+            <p>Atualmente não há anúncios disponíveis</p>
         </div>
         {%endif%}
       </div>

@@ -51,26 +51,22 @@
               <tr>
                 <td>{{inquiry.listing}}</td>
                 <td>
-                  <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#inquiryModal">Ver mensagem</button>
+                  <button class="btn btn-primary btn-block" onclick="iniciaModal('modal-ver-mensagem')" data-toggle="modal" data-target="#inquiryModal">Ver mensagem</button>
                 </td>
-                <td>
-                  <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#replyModal">Responder</button>
-                </td>
+                <!--<td>
+                  <button class="btn btn-primary btn-block" onclick="iniciaModal('modal-reply')" data-toggle="modal" data-target="#replyModal">Responder</button>
+                </td>-->
               </tr>
-              <div class="modal fade" id="inquiryModal" role="dialog">
-                <div class="modal-dialog">
-                  <div class="modal-content">
+              <div id="modal-ver-mensagem" class="modal-container">
+                <div class="modal"> 
                     <div class="modal-header">
                       <h5 class="modal-title" id="inquiryModalLabel">Mensagem para {{inquiry.listing}}</h5>
-                      <button type="button" class="close" data-dismiss="modal">
+                      <button class="fechar">
                         <span>&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
                       <form>
-                        <input type="hidden" name="owner_mail" value="{{listing.owner.email}}">
-                        <input type="hidden" name="listing_id" value="{{listing.id}}">
-                        <input type="hidden" name="owner_id" value="{{listing.owner.id}}">
                         <div class="form-group">
                           <label for="property_name" class="col-form-label">Vaga:</label>
                           <input type="text" name="listing" class="form-control" value="{{inquiry.listing}}" readonly>
@@ -94,15 +90,14 @@
                         <hr>
                     </form>
                     </div>
-                  </div>
+                  
                 </div>
               </div>
-              <div class="modal fade" id="replyModal" role="dialog">
-                <div class="modal-dialog">
-                  <div class="modal-content">
+              <div id="modal-reply" class="modal-container">
+                <div class="modal">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="inquiryModalLabel">Replying to {{inquiry.name}}</h5>
-                      <button type="button" class="close" data-dismiss="modal">
+                      <h5 class="modal-title" id="inquiryModalLabel">Responder para {{inquiry.name}}</h5>
+                      <button class="fechar">
                         <span>&times;</span>
                       </button>
                     </div>
@@ -126,22 +121,26 @@
                           <textarea name="message" class="form-control" value="{{inquiry.message}}"required></textarea>
                         </div>
                         <hr>
-                       <input type="submit" value="Send" class="btn btn-block btn-secondary">
-
+                       <input type="submit" value="Responder" class="btn btn-block btn-secondary">
+            
                     </form>
                     </div>
-                  </div>
                 </div>
               </div>
+              
               {% endfor %}
             </tbody>
           </table>
+          
           {%else%}
-          <p>No Inquiries made for any of your lisitngs yet</p>
+          <p>Nenhuma mensagem recebida.</p>
           {%endif%}
         </div>
       </div>
     </div>
+    
   </section>
+
+  
 
 {%endblock%}

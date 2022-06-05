@@ -3,20 +3,21 @@
 {% block tiltle %} Listings {% endblock %}
 {% block content %}
 {% load static%}
+<body>
 <section id="showcase-inner" class="py-5 text-white">
-    <div class="container">
-      <div class="row text-center">
-        <div class="col-md-12">
-          <h1 class="display-4">{{listing.title}}</h1>
-          <p class="lead">
-            <i class="fas fa-map-marker"></i>{{listing.city}} {{listing.state}}, {{listing.zipcode}}</p>
-        </div>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1 class="display-4">{{listing.titulo}}</h1>
+        <p class="lead">
+          <i class="fas fa-map-marker"></i>{{listing.cidade}} {{listing.estado}}, {{listing.cep}}</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Breadcrumb -->
-  <section id="bc" class="mt-3">
+<section id="bc" class="mt-3">
  {% include 'partials/_alerts.html'%}
 
     <div class="container">
@@ -28,202 +29,173 @@
           <li class="breadcrumb-item">
             <a href="{% url 'listings' %}">Destaques</a>
           </li>
-          <li class="breadcrumb-item active">{{listing.title}}</li>
+          <li class="breadcrumb-item active">{{listing.titulo}}</li>
         </ol>
       </nav>
     </div>
-  </section>
+</section>
   <!-- Listing -->
-  <section id="listing" class="py-4">
-    <div class="container">
-      <a href="{%url 'listings' %}" class="btn btn-light mb-4">Voltar para destaques</a>
-      <div class="row">
-        <div class="col-md-9">
-          <!-- Home Main Image -->
-          <img src="{{listing.photo_main.url}}" alt="" class="img-main img-fluid mb-3">
-          <!-- Thumbnails -->
-          <div class="row mb-5 thumbs">
-            {% if listing.photo_1%}
-            <div class="col-md-2">
-              <a href="{{ listing.photo_1.url}}" data-lightbox="home-images">
-                <img src="{{ listing.photo_1.url}}" alt="" class="img-fluid">
-              </a>
-            </div>
-            {% endif %}
-            {% if listing.photo_2%}
-            <div class="col-md-2">
-              <a href="{{ listing.photo_2.url}}" data-lightbox="home-images">
-                <img src="{{ listing.photo_2.url}}" alt="" class="img-fluid">
-              </a>
-            </div>
-            {% endif %}
-            {% if listing.photo_3%}
-            <div class="col-md-2">
-              <a href="{{ listing.photo_3.url}}" data-lightbox="home-images">
-                <img src="{{ listing.photo_3.url}}" alt="" class="img-fluid">
-              </a>
-            </div>
-            {% endif %}
-            {% if listing.photo_4%}
-            <div class="col-md-2">
-              <a href="{{ listing.photo_4.url}}" data-lightbox="home-images">
-                <img src="{{ listing.photo_4.url}}" alt="" class="img-fluid">
-              </a>
-            </div>
-            {% endif %}
-            {% if listing.photo_5%}
-            <div class="col-md-2">
-              <a href="{{ listing.photo_5.url}}" data-lightbox="home-images">
-                <img src="{{ listing.photo_5.url}}" alt="" class="img-fluid">
-              </a>
-            </div>
-            {% endif %}
-            {% if listing.photo_6%}
-            <div class="col-md-2">
-              <a href="{{ listing.photo_6.url}}" data-lightbox="home-images">
-                <img src="{{ listing.photo_6.url}}" alt="" class="img-fluid">
-              </a>
-            </div>
-            {% endif %}
+<section id="listing" class="py-4">
+  <div class="container">
+    <a href="{%url 'listings' %}" class="btn btn-light mb-4">Voltar para destaques</a>
+    <div class="row">
+      <div class="col-md-9">
+        <!-- Home Main Image -->
+        <img src="{{listing.foto_1.url}}" alt="" class="img-main img-fluid mb-3">
+        <!-- Thumbnails -->
+        <div class="row mb-5 thumbs">
+          {% if listing.foto_2%}
+          <div class="col-md-2">
+            <a href="{{ listing.foto_2.url}}" data-lightbox="home-images">
+              <img src="{{ listing.foto_2.url}}" alt="" class="img-fluid">
+            </a>
           </div>
-          <!-- Fields -->
-          <div class="row mb-5 fields">
-            <div class="col-md-6">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item text-secondary">
-                  <i class="fas fa-money-bill-alt"></i> Valor:
-                  <span class="float-right"> {{ listing.price | intcomma }}</span>
-                </li>
-                <li class="list-group-item text-secondary">
-                  <i class="fas fa-list-alt"></i> Categoria:
-                  <span class="float-right">{{ listing.category}}</span>
-                </li>
-                <li class="list-group-item text-secondary">
-                  <i class="fas fa-list-alt"></i> Avaliação:
-                  {%if current_rating%}
-                    <span class="float-right">{{ current_rating }}</span>
-                  {%else%}
-                    <p>Este anúncio ainda não recebeu avaliação</p>
-                  {%endif%}
-                </li>
-              </ul>
-            </div>
-            <div class="col-md-6">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item text-secondary">
-                  <i class="fas fa-calendar"></i> Data da postagem:
-                  <span class="float-right">{{listing.list_date}}</span>
-                </li>
-                <li class="list-group-item text-secondary">
-                  <i class="fas fa-user"></i> Proprietário:
-                  <span class="float-right">{{ listing.owner.first_name }}
+          {% endif %}
+          {% if listing.foto_3%}
+          <div class="col-md-2">
+            <a href="{{ listing.foto_3.url}}" data-lightbox="home-images">
+              <img src="{{ listing.foto_3.url}}" alt="" class="img-fluid">
+            </a>
+          </div>
+          {% endif %}
+        </div>
+        <!-- Fields -->
+        <div class="row mb-5 fields">
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-money-bill-alt"></i> Valor:
+                <span class="float-right"> {{ listing.preco | intcomma }}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-list-alt"></i> Categoria:
+                <span class="float-right">{{ listing.categoria}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-list-alt"></i> Avaliação:
+                {%if current_rating%}
+                  <span class="float-right">{{ current_rating }}</span>
+                {%else%}
+                  <p>Este anúncio ainda não recebeu avaliação</p>
+                {%endif%}
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-calendar"></i> Data da postagem:
+                <span class="float-right">{{listing.list_date}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-user"></i> Proprietário:
+                <span class="float-right">{{ listing.owner.first_name }}
+                </span>
+              </li>
+              <li class="list-group-item text-secondary">
+                  <i class="fas fa-phone"></i> Telefone:
+                  <span class="float-right">{{ listing.owner.phone }}
                   </span>
                 </li>
-                <li class="list-group-item text-secondary">
-                    <i class="fas fa-phone"></i> Telefone:
-                    <span class="float-right">{{ listing.owner.phone }}
-                    </span>
-                  </li>
 
 
-              </ul>
-            </div>
-          </div>
-
-          <!-- Description -->
-          <div class="row mb-5">
-            <div class="col-md-12">
-              <b>Description:</b> {{listing.description}}
-            </div>
+            </ul>
           </div>
         </div>
-        <div class="col-md-3">
-          <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Entrar em contato</button>
-          <br>
-          {%if request.user.is_authenticated%}
-            <form action="{%url 'listing' listing.id%}" method="POST">
-              {%csrf_token%}
-              {%if favourite%}
-                <input type="hidden" name="favourite_val" value="unfavourite">
-                <button class="btn-danger btn-block btn-lg" type="submit">Desfavoritar</button>
-              {%else%}
-                <input type="hidden" name="favourite_val" value="favourite">
-                <button class="btn-success btn-block btn-lg" type="submit">Favoritar</button>
-              {%endif%}
-            </form>
-          {%endif%}
-          <br>
-          {%if rate%}
-          <form action="{%url 'listing' listing.id%}" method="POST">
-            {%csrf_token%}
-            <div style="display: flex;">
-              <input  name="my_rating" required placeholder="Enter value from 1-10" class="form-control">
-              <button class="btn btn-primary" type="submit">Avaliar</button>
-            </div>
-            {%else%}
-            {%if request.user.is_authenticated%}
-            <p>Você já avaliou esse anúncio</p>
-            {%else%}
-            <p>Por favor, faça o login para avaliar esse anúncio</p>
-            {%endif%}
-          </form>
-          {%endif%}
-          <br>
-          <a href="https://wa.me/+55{{ listing.owner.phone }}?text=Ei {{ listing.owner.first_name }}, estou interessado na vaga de {{listing.title}} na FREELAZ" target="_blank">
-              <img class="whatsapp"src="{% static 'img/whatsapp.png'%}" alt="Minha Figura">
-          </a>
+
+        <!-- Description -->
+        <div class="row mb-5">
+          <div class="col-md-12">
+            <b>Descrição:</b> {{listing.descricao}}
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Inquiry Modal -->
-  <div class="modal fade" id="inquiryModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="inquiryModalLabel">Entrar em contato</h5>
-          <button type="button" class="close" data-dismiss="modal">
-            <span>&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="{% url 'inquirys'%}" method="POST">
-            {% csrf_token %}
-            {% if user.is_authenticated %}
-              <input type="hidden" name="user_id" value="{{ user.id }}">
+      <div class="col-md-3">
+        <button type="button" onclick="iniciaModal('modal-promocao')" class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Entrar em contato</button>
+        <br>
+        {%if request.user.is_authenticated%}
+          <form action="{%url 'listing' listing.id%}" method="POST">
+            {%csrf_token%}
+            {%if favourite%}
+              <input type="hidden" name="favourite_val" value="unfavourite">
+              <button class="btn-danger btn-block btn-lg" type="submit">Desfavoritar</button>
             {%else%}
-            <input type="hidden" name="user_id" value="0">
+              <input type="hidden" name="favourite_val" value="favourite">
+              <button class="btn-success btn-block btn-lg" type="submit">Favoritar</button>
             {%endif%}
-          
-            <input type="hidden" name="owner_mail" value="{{listing.owner.email}}">
-            <input type="hidden" name="listing_id" value="{{listing.id}}">
-            <input type="hidden" name="owner_id" value="{{listing.owner.id}}">
-            <div class="form-group">
-              <label for="property_name" class="col-form-label">Vaga:</label>
-              <input type="text" name="listing" class="form-control" value="{{listing.title}}" readonly>
-            </div>
-            <div class="form-group">
-              <label for="name" class="col-form-label">Nome:</label>
-              <input type="text" name="name" class="form-control" {%if user.is_authenticated%} value = "{{ user.first_name }} {{ user.last_name }}" readonly{%else%} required {%endif%}>
-            </div>
-            <div class="form-group">
-              <label for="email" class="col-form-label">Email:</label>
-              <input type="email" name="email" class="form-control" {%if user.is_authenticated%} value = "{{ user.email }}" readonly{%else%} required {%endif%}>
-            </div>
-            <div class="form-group">
-              <label for="phone" class="col-form-label">Telefone:</label>
-              <input type="text" name="phone" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="message" class="col-form-label">Mensagem:</label>
-              <textarea name="message" class="form-control"></textarea>
-            </div>
-            <hr>
-            <input type="submit" value="Send" class="btn btn-block btn-secondary">
           </form>
-        </div>
+        {%endif%}
+        <br>
+        {%if rate%}
+        <form action="{%url 'listing' listing.id%}" method="POST">
+          {%csrf_token%}
+          <div style="display: flex;">
+            <input  name="my_rating" required placeholder="Enter value from 1-10" class="form-control">
+            <button id="avaliar"class="btn btn-primary" type="submit">Avaliar</button>
+          </div>
+          {%else%}
+          {%if request.user.is_authenticated%}
+          <p>Você já avaliou esse anúncio</p>
+          {%else%}
+          <p>Por favor, faça o login para avaliar esse anúncio</p>
+          {%endif%}
+        </form>
+        {%endif%}
+        <br>
+        <a href="https://wa.me/+55{{ listing.owner.phone }}?text=Ei {{ listing.owner.first_name }}, estou interessado na vaga de {{listing.titulo}} na FREELAZ" target="_blank">
+            <img class="whatsapp"src="{% static 'img/whatsapp.png'%}" alt="Minha Figura">
+        </a>
       </div>
     </div>
   </div>
+</section>
+
+  <!-- Inquiry Modal -->
+  <div id="modal-promocao" class="modal-container">
+    <div class="modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="inquiryModalLabel">Entrar em contato</h5>
+        <button class="fechar">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'inquirys'%}" method="POST">
+          {% csrf_token %}
+          {% if user.is_authenticated %}
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+          {%else%}
+          <input type="hidden" name="user_id" value="0">
+          {%endif%}
+        
+          <input type="hidden" name="owner_mail" value="{{listing.owner.email}}">
+          <input type="hidden" name="listing_id" value="{{listing.id}}">
+          <input type="hidden" name="owner_id" value="{{listing.owner.id}}">
+          <div class="form-group">
+            <label for="property_name" class="col-form-label">Vaga:</label>
+            <input type="text" name="listing" class="input" value="{{listing.titulo}}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Nome:</label>
+            <input type="text" name="name" class="input" {%if user.is_authenticated%} value = "{{ user.first_name }} {{ user.last_name }}" readonly{%else%} required {%endif%}>
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-form-label">Email:</label>
+            <input type="email" name="email" class="input" {%if user.is_authenticated%} value = "{{ user.email }}" readonly{%else%} required {%endif%}>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="col-form-label">Telefone:</label>
+            <input type="text" name="phone" class="input">
+          </div>
+          <div class="form-group">
+            <label for="message" class="col-form-label">Mensagem:</label>
+            <textarea name="message" class="input"></textarea>
+          </div>
+          <hr>
+          <input type="submit" value="Enviar" class="input">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
 {% endblock %}

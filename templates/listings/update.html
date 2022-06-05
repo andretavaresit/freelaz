@@ -114,7 +114,7 @@
                             {% csrf_token %}
                           <div class="form-group">
                           <label for="first_name">Título</label>
-                          <input type="text" name="titulo" class="form-control" required value={{listing.title}}>
+                          <input type="text" name="titulo" class="form-control" required value={{listing.titulo}}>
                         </div>
                         <div class="form-group">
                           <label for="last_name">Categoria</label>
@@ -126,27 +126,27 @@
                         </div>
                         <div class="form-group">
                           <label for="username">Endereço</label>
-                          <input type="text" name="endereco" class="form-control" value={{listing.address}} required >
+                          <input type="text" name="endereco" class="form-control" value={{listing.endereco}} required >
                         </div>
                         <div class="form-group">
                           <label for="email">Cidade</label>
-                          <input type="text" name="cidade" class="form-control" value={{listing.city}} required>
+                          <input type="text" name="cidade" class="form-control" value={{listing.cidade}} required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Estado</label>
-                            <input type="text" name="estado" class="form-control" value={{listing.state}} required>
+                            <input type="text" name="estado" class="form-control" value={{listing.estado}} required>
                           </div>
                         <div class="form-group">
                           <label for="password">Cep</label>
-                          <input type="text" name="cep" class="form-control" value={{listing.zipcode}} required>
+                          <input type="text" name="cep" class="form-control" value={{listing.cep}} required>
                         </div>
                         <div class="form-group">
                           <label for="password">Descrição</label><br>
-                          <input type="text" name="descricao" class="form-control"  value={{listing.description}} required>
+                          <input type="text" name="descricao" class="form-control"  value={{listing.descricao}} required>
                         </div>
                         <div class="form-group">
                             <label for="password">Preço</label>
-                            <input type="text" onkeypress="return onlynumber();"name="preco" value={{listing.price}} class="form-control" required>
+                            <input type="text" onkeypress="return onlynumber();"name="preco" value={{listing.preco}} class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Foto Principal</label>

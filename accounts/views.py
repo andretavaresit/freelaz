@@ -142,10 +142,25 @@ def myinquiries(request):
 @login_required
 def inquiry1(request):
     myinquiry = inquiry.objects.all().filter(owner_id=request.user.id)
-    context = {
-        'inquiries':myinquiry
-    }
-    return render(request, 'accounts/dashboard_inquiries.html',context)
+    print('MY INQUIRI')
+    print(myinquiry)
+    if myinquiry:
+        print('entrei if myinquiry')
+        dict = myinquiry[0].__dict__
+        print('DICT AQUI')
+        print(str(dict))
+        context = {
+            'inquiries':myinquiry
+        }
+        print(context)
+        return render(request, 'accounts/dashboard_inquiries.html',context)
+    else:
+        print('entrei else myinquiry')
+        context = {
+            'inquiries':''
+        }
+        print(context)
+        return render(request, 'accounts/dashboard_inquiries.html',context)
 
 @login_required
 def send_reply(request):
@@ -171,7 +186,7 @@ def change_password(request):
         user = request.user
         currentpassword = request.POST['currentpassword']
         if not check_password(currentpassword,user.password):
-            messages.error(request,'Incorrect Current Password')
+            messages.error(request,'Senha atual incorreta')
             return redirect('dashboard')
         password1 = request.POST['password1']
         password2 = request.POST['password2']
@@ -179,11 +194,11 @@ def change_password(request):
         if password1 == password2:
             user.set_password(password1)
             user.save()
-            messages.success(request,'You have been logged out')
-            messages.success(request,'You have successfully changed the password')
-            messages.success(request,'Use your new password to login')
+            messages.success(request,'Você foi desconectado')
+            messages.success(request,'Você alterou a senha com sucesso')
+            messages.success(request,'Use sua nova senha para fazer login')
         else:
-            messages.error(request,'Passwords do not match')
+            messages.error(request,'As senhas não coincidem')
         return redirect('dashboard')
     
     else:
@@ -193,11 +208,46 @@ def change_password(request):
 def favourite_listing(request):
     favourites = request.user.favourites
     favourites = favourites.split(',')[1:]
+    print('favoritos aqui')
     print(favourites)
-    listings = []
-    for i in favourites:
-        listings.append(get_object_or_404(Listing,pk=int(i)))
-    context = {
-        'listings': listings
-    }
-    return render(request, 'accounts/favourites.html', context)
+    print(len(favourites))
+    if len(favourites)<=1:
+        if favourites[0] != '':
+            print('entrei favourites<1')
+            listings = []
+            for i in favourites:
+                listings.append(get_object_or_404(Listing,pk=int(i)))
+            context = {
+                'listings': listings
+            }
+            return render(request, 'accounts/favourites.html', context)
+        else:
+            return render(request, 'accounts/favourites.html')
+    else:
+        achou_favorito=0
+        for x in favourites:
+            if x != '':
+                achou_favorito=1
+                print('achei favorito')
+            else:
+                print('nao achei favorito')
+                pass
+            
+        if achou_favorito==1:
+            print('entrei favourites>2')
+            listings = []
+            for i in favourites:
+                print('entreifor')
+                if i !='':
+                    listings.append(get_object_or_404(Listing,pk=int(i)))
+                else:
+                    pass
+            print('passei for')
+            context = {
+                'listings': listings
+            }
+            print('contexto aqui')
+            print(context)
+            return render(request, 'accounts/favourites.html', context)
+        else:
+            return render(request, 'accounts/favourites.html')

@@ -6,14 +6,29 @@ setTimeout(function() {
 }, 3000);
 
 
-function onlynumber(evt) {
-    var theEvent = evt || window.event;
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode( key );
-    //var regex = /^[0-9.,]+$/;
-    var regex = /^[0-9.]+$/;
-    if( !regex.test(key) ) {
-       theEvent.returnValue = false;
-       if(theEvent.preventDefault) theEvent.preventDefault();
+function iniciaModal(modalID){
+
+    const avaliar = document.getElementById('avaliar')
+    console.log(avaliar)
+
+    if (avaliar == null){
+
+        const modal = document.getElementById(modalID);
+
+        modal.classList.add('mostrar');
+
+        modal.addEventListener('click',(e)=>{
+            if(e.target.id==modalID || e.target.className=='fechar'){
+                modal.classList.remove('mostrar')
+            }
+        })
+
+        console.log(modal);
+
+    }else{
+        alert("Por favor, antes de entrar em contato avalie o Anúncio");
     }
- }
+
+    
+
+}
